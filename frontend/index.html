@@ -1,0 +1,581 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MPLADS AI Monitor</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- Login Section -->
+<div id="loginSection" class="login-container" style="display: none;">
+
+    <div class="login-box">
+
+        <h2>MPLADS AI Monitor</h2>
+        <p>Login to your account</p>
+
+        <form id="loginForm">
+
+            <input
+                type="text"
+                id="username"
+                placeholder="Enter Username"
+                required
+            >
+
+            <input
+                type="password"
+                id="password"
+                placeholder="Enter Password"
+                required
+            >
+
+            <button type="submit">Login</button>
+
+            <p id="loginMessage"></p>
+
+        </form>
+
+    </div>
+
+</div>
+
+    
+
+<div class="app-layout">
+
+    <aside class="sidebar">
+
+        <div class="sidebar-brand">
+            <h2>MPLADS</h2>
+            <p>AI MONITOR</p>
+        </div>
+
+        <div class="sidebar-menu">
+
+            <p class="menu-heading">MAIN MENU</p>
+
+            
+<button class="nav-item active" data-page="dashboard">
+    <span class="nav-icon">▦</span>
+    Dashboard
+</button>
+
+<button class="nav-item" data-page="projects">
+    <span class="nav-icon">▤</span>
+    Project Management
+</button>
+
+<button class="nav-item" data-page="anomalies">
+    <span class="nav-icon">⚠</span>
+    Anomaly Detection
+</button>
+
+<button class="nav-item" data-page="risk">
+    <span class="nav-icon">◈</span>
+    Risk Analysis
+</button>
+
+<button class="nav-item" data-page="alerts">
+    <span class="nav-icon">♧</span>
+    Risk Alerts
+</button>
+
+<button class="nav-item" data-page="evidence">
+    <span class="nav-icon">▧</span>
+    Photo & Evidence
+</button>
+<!-- Account Controls -->
+
+<div class="account-controls">
+
+    <p id="userStatus">Public Viewer</p>
+
+    <button id="loginButton" class="nav-item">
+        Login
+    </button>
+
+    <button id="logoutButton" class="nav-item" style="display: none;">
+        Logout
+    </button>
+
+</div>
+        </div>
+
+        <div class="sidebar-footer">
+            <p>MPLADS AI Monitor</p>
+            <small>Project Monitoring System</small>
+        </div>
+
+        </aside>
+
+    <div class="main-content">
+
+    <header class="topbar">
+        <h2 id="pageTitle">Dashboard Overview</h2>
+        <p>MPLADS Project Monitoring System</p>
+    </header>
+
+    <main id="dashboard">
+        <section class="page active" id="page-dashboard">
+        <h2>Project Monitoring Dashboard</h2>
+
+        <div class="dashboard-cards">
+
+            <div class="stat-card">
+                <h3>Total Projects</h3>
+                <p id="totalProjects">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Budget</h3>
+                <p id="totalBudget">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Total Expenditure</h3>
+                <p id="totalExpenditure">Loading...</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>Average Progress</h3>
+                <p id="averageProgress">Loading...</p>
+            </div>
+
+        </div>
+
+<section class="charts-section" id="charts">
+
+    <h2>District-wise Project Analysis</h2>
+
+    <div class="chart-card">
+        <h3>Projects by District</h3>
+        <canvas id="districtChart"></canvas>
+    </div>
+
+    <div class="chart-card">
+        <h3>Budget by District</h3>
+        <canvas id="budgetChart"></canvas>
+    </div>
+
+</section>
+</section>
+
+    <section class="page" id="page-anomalies">
+    <h2>Anomaly Monitoring</h2>
+
+    <div class="anomaly-cards">
+
+        <div class="anomaly-card">
+            <h3>Projects with Anomalies</h3>
+            <p id="anomalyTotal">Loading...</p>
+        </div>
+
+        <div class="anomaly-card">
+            <h3>Budget Overruns</h3>
+            <p id="budgetAnomalies">Loading...</p>
+        </div>
+
+        <div class="anomaly-card">
+            <h3>Delayed Projects</h3>
+            <p id="delayAnomalies">Loading...</p>
+        </div>
+
+        <div class="anomaly-card">
+            <h3>Progress Mismatches</h3>
+            <p id="progressAnomalies">Loading...</p>
+        </div>
+
+    </div>
+        <div class="anomaly-details-section">
+
+        <h3>Detected Anomaly Details</h3>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Project ID</th>
+                    <th>Project Name</th>
+                    <th>District</th>
+                    <th>Anomaly Count</th>
+                    <th>Anomaly Type</th>
+                    <th>Details</th>
+                </tr>
+            </thead>
+
+            <tbody id="anomalyDetailsBody">
+                <tr>
+                    <td colspan="6">Loading anomaly details...</td>
+                </tr>
+            </tbody>
+        </table>
+
+    </div>
+
+</section>
+
+        <section class="page" id="page-projects">
+        <h2>Project Management</h2>
+            <button type="button" id="addProjectBtn" data-role="admin">
+    + Add New Project
+</button>
+        <div id="addProjectForm" class="project-form" hidden data-role="admin">
+
+    <h3>Add New Project</h3>
+
+    
+<form id="newProjectForm">
+
+    <div class="form-section">
+        <h4>Project Information</h4>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="newProjectId">Project ID</label>
+                <input type="text" id="newProjectId"
+                    placeholder="e.g. MPL010" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newProjectName">Project Name</label>
+                <input type="text" id="newProjectName"
+                    placeholder="Enter project name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newDistrict">District</label>
+                <input type="text" id="newDistrict"
+                    placeholder="Enter district" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h4>Financial Information</h4>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="newBudget">Allocated Budget (₹)</label>
+                <input type="number" id="newBudget"
+                    placeholder="Enter allocated budget"
+                    min="1" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newExpenditure">Expenditure (₹)</label>
+                <input type="number" id="newExpenditure"
+                    placeholder="Amount spent"
+                    min="0" value="0" required>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <h4>Project Timeline & Status</h4>
+
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="newStartDate">Start Date</label>
+                <input type="date" id="newStartDate" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newDeadline">Deadline</label>
+                <input type="date" id="newDeadline" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newProgress">Progress (%)</label>
+                <input type="number" id="newProgress"
+                    placeholder="0 to 100"
+                    min="0" max="100" value="0" required>
+            </div>
+
+            <div class="form-group">
+                <label for="newStatus">Project Status</label>
+                <select id="newStatus" required>
+                    <option value="Ongoing">Ongoing</option>
+                    <option value="Completed">Completed</option>
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-actions">
+        <button type="submit">Save Project</button>
+        <button type="button" id="cancelProjectBtn">Cancel</button>
+    </div>
+
+</form>
+
+</div>
+
+<!-- Edit Project Form -->
+<div id="editProjectForm" class="project-form" hidden data-role="admin">
+<div class="edit-modal-card">
+    <h3>Edit Project Details</h3>
+
+    <form id="updateProjectForm">
+
+        <input type="hidden" id="editProjectId">
+
+        <div class="form-section">
+            <h4>Project Information</h4>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Project ID</label>
+                    <input type="text" id="editProjectIdDisplay" disabled>
+                </div>
+
+                <div class="form-group">
+                    <label>Project Name</label>
+                    <input type="text" id="editProjectName" required>
+                </div>
+
+                <div class="form-group">
+                    <label>District</label>
+                    <input type="text" id="editDistrict" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h4>Financial Information</h4>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Allocated Budget (₹)</label>
+                    <input type="number" id="editBudget" min="1" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Expenditure (₹)</label>
+                    <input type="number" id="editExpenditure" min="0" required>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-section">
+            <h4>Project Timeline & Status</h4>
+
+            <div class="form-grid">
+                <div class="form-group">
+                    <label>Start Date</label>
+                    <input type="date" id="editStartDate" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Deadline</label>
+                    <input type="date" id="editDeadline" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Progress (%)</label>
+                    <input type="number" id="editProgress"
+                        min="0" max="100" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Status</label>
+                    <select id="editStatus" required>
+                        <option value="Ongoing">Ongoing</option>
+                        <option value="Completed">Completed</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-actions">
+            <button type="submit">Update Project</button>
+            <button type="button" id="cancelEditBtn">Cancel</button>
+        </div>
+
+    </form>
+</div>
+</div>
+
+        <div class="project-filters">
+            <input
+                type="text"
+                id="projectSearch"
+                placeholder="Search by Project ID, Name or District..."
+            >
+
+            <select id="statusFilter">
+                <option value="all">All Status</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="completed">Completed</option>
+            </select>
+
+            <button type="button" id="clearFilters">Clear Filters</button>
+        </div>
+
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Project ID</th>
+                    <th>Project Name</th>
+                    <th>District</th>
+                    <th>Budget</th>
+                    <th>Expenditure</th>
+                    <th>Progress</th>
+                    <th>Status</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+
+            <tbody id="projectsTable">
+                <tr>
+                    <td colspan="7">Loading projects...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+
+	
+<section class="page" id="page-risk">
+
+    <section class="risk-analysis-section">
+
+        <h2>Project Risk Analysis</h2>
+
+        <p class="risk-description">
+            Risk scores are calculated using project monitoring indicators.
+            These flags identify projects that may require further review
+            and do not establish fraud.
+        </p>
+
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Project ID</th>
+                        <th>Project Name</th>
+                        <th>District</th>
+                        <th>Risk Score</th>
+                        <th>Risk Level</th>
+                        <th>Risk Reasons</th>
+                    </tr>
+                </thead>
+
+                <tbody id="riskAnalysisTable">
+                    <tr>
+                        <td colspan="6">Loading risk analysis...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </section>
+
+</section>
+
+<section class="page" id="page-alerts">
+
+    <h2>Risk Alerts & Attention Required</h2>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Project ID</th>
+                    <th>Project Name</th>
+                    <th>District</th>
+                    <th>Risk Score</th>
+                    <th>Risk Level</th>
+                </tr>
+            </thead>
+
+            <tbody id="alertsTable">
+                <tr>
+                    <td colspan="5">Loading alerts...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+</section>
+
+
+    <section class="page" id="page-evidence">
+    <h2>Photo & Evidence Verification</h2>
+
+
+    <div class="upload-evidence-form" data-role="staff">
+        <h3>Upload New Project Evidence</h3>
+
+        <label for="evidenceProject">Select Project</label>
+        <select id="evidenceProject">
+            <option value="">Select a project</option>
+        </select>
+
+        <label for="evidenceFile">Choose Photograph</label>
+        <input
+            type="file"
+            id="evidenceFile"
+            accept="image/png, image/jpeg, image/webp"
+        >
+
+        <button type="button" id="uploadEvidenceBtn">
+            Upload Evidence
+        </button>
+
+        <p id="uploadMessage"></p>
+    </div>
+
+
+    <div class="evidence-summary">
+        <div class="evidence-card">
+            <h3>Total Evidence</h3>
+            <p id="totalEvidence">Loading...</p>
+        </div>
+
+        <div class="evidence-card">
+            <h3>Projects Without Evidence</h3>
+            <p id="missingEvidence">Loading...</p>
+        </div>
+    </div>
+
+    <h3 class="evidence-subheading">Uploaded Project Evidence</h3>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Project ID</th>
+                    <th>File Name</th>
+                    <th>Upload Date</th>
+                    <th>Verification Status</th>
+                    <th>Photograph</th>
+                </tr>
+            </thead>
+
+            <tbody id="evidenceTable">
+                <tr>
+                    <td colspan="5">Loading evidence...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+</main>
+
+    </div>
+</div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
