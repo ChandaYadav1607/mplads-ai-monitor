@@ -7,4 +7,4 @@ pwdlib[argon2]
 PyJWT
 python-dotenv
 Pillow
-psycopg2-binary
+psycopg[binary]
