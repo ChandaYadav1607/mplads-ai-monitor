@@ -48,5 +48,3 @@ It helps administrators and reviewers monitor project progress, verify submitted
 ## Project Objective
 To provide a centralized digital monitoring solution that supports better tracking, verification, and transparency in MPLADS project implementation.
 
-## Developed For
-Smart India Hackathon (SIH) 2026
